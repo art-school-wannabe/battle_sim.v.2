@@ -10,7 +10,7 @@ The progam is split up into three files,
 
 (3) "class_files/enemy_class.py", a file containing a enemy class definition 
 
-    note: both class files need to e in a folder named "class_files"
+    note: both class files need to be under a folder named "class_files"
 
 
 all save data for each character will be saved to a seperate file name "{name_of_charecter]\_DataFile.py"
