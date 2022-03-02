@@ -178,28 +178,27 @@ self.arrows = {self.arrows}
   def flame(self):
 
     # player attack
-    if spell_cast == "1":
         
-      if self.mana >= 10:
-        self.mana -= 10
+    if self.mana >= 10:
+      self.mana -= 10
           
-        attack_chance = (d(20) + self.attackbonus)
-        if attack_chance > creature.ac:
-          attack = (d(12) + self.attackbonus)
-          creature.health -= attack
-          if creature.health < 0:
-            creature.health = 0
-          sprint(f"You cast flame dealing {attack} damage. The creature is at {creature.health} hp.")
-          if creature.health == 0:
-            sprint("The creature died.")
-            self.reward()
-          creature.duration = random.randint(2, 3)
-        else:
-          sprint("You missed the spell.")
+      attack_chance = (d(20) + self.attackbonus)
+      if attack_chance > creature.ac:
+        attack = (d(12) + self.attackbonus)
+        creature.health -= attack
+        if creature.health < 0:
+          creature.health = 0
+        sprint(f"You cast flame dealing {attack} damage. The creature is at {creature.health} hp.")
+        if creature.health == 0:
+          sprint("The creature died.")
+          self.reward()
+        creature.duration = random.randint(2, 3)
+      else:
+        sprint("You missed the spell.")
 
-      # creature attack
-      if self.fighting:
-        creature.action()
+    # creature attack
+    if self.fighting:
+      creature.action()
 
 
   # define lightening bolt spell function
