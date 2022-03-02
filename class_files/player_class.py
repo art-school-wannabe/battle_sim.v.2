@@ -96,7 +96,7 @@ self.arrows = {self.arrows}
       self.experience += creature.experience
 
       # level up
-      if self.experience >= ((3000 * player.multiplier) * self.level):
+      if self.experience >= ((3000 * player.attackmulti) * self.level):
         self.level += 1
         self.attackmulti = (self.level / 10 + 1)
         self.attackbonus = (2 + self.level)
