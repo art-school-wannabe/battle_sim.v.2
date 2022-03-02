@@ -96,7 +96,7 @@ self.arrows = {self.arrows}
       self.experience += creature.experience
 
       # level up
-      if self.experience >= ((3000 * player.attack_multiplier) * self.level):
+      if self.experience >= ((3000 * player.multiplier) * self.level):
         self.level += 1
         self.attackmulti = (self.level / 10 + 1)
         self.attackbonus = (2 + self.level)
@@ -128,7 +128,7 @@ self.arrows = {self.arrows}
     if distance == 1:
       attack_chance = (d(20) + self.attackbonus)
       if attack_chance > creature.ac:
-        attack = (d(40) + self.attackbonus)
+        attack = (d(12) + self.attackbonus)
         
         creature.health -= attack
         if creature.health < 0:
