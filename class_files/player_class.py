@@ -193,7 +193,7 @@ self.arrows = {self.arrows}
           if creature.health == 0:
             sprint("The creature died.")
             self.reward()
-            creature.duration = random.randint(2, 3)
+          creature.duration = random.randint(2, 3)
         else:
           sprint("You missed the spell.")
 
