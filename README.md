@@ -2,7 +2,7 @@
 
 This is a small text based rpg for python.
 
-The progam is split up into three files,
+The progam is split up into four files,
 
 (1) "battle_sim.v.2.py", the main file needed for running the program
 
@@ -10,7 +10,9 @@ The progam is split up into three files,
 
 (3) "class_files/enemy_class.py", a file containing a enemy class definition 
 
-    note: both class files need to be under a folder named "class_files"
+(4) "class_files/tavern_class.py", a file containing a tavern class definition
+
+    note: all class files need to be under a folder named "class_files"
 
 
 all save data for each character will be saved to a seperate file name "{name_of_charecter]\_DataFile.py"
