@@ -3,8 +3,8 @@ class tavern:
 
   # define initial function
   def __init__(self):
-    self.x = 1
-
+    taverns = {"Connyberry": "Tuligan", "Barstal": "Kem", "Ironstone": "Barthock", "Kelender": "Jameti"}
+    self.keep = taverns[player.location]
     
   # define bounty board function
   def bounty_board(self):
@@ -26,7 +26,7 @@ class tavern:
 |    Reward    |  |    Reward    |  |    Reward    |
 |   {creaturea.gold}  gold   |  |   {creatureb.gold}  gold   |  |   {creaturec.gold}  gold   |
  ______________    ______________    ______________ """)
-    enemy_selection = input("Choose a bounty.").lower()
+    enemy_selection = input("Choose a bounty. ").lower()
 
     # leave bounty board
     if enemy_selection == "0":
@@ -57,27 +57,27 @@ class tavern:
     sprint(f"You step out onto the dirt trail outside the tavern and journey off deep into the forest ahead.")
     sprint(f"A short walk later, a {creature.size} creature has approached you. It appears hostile.")
     sprint("""------------------------
-1 attack with sword
-2 attack with crossbow
-3 cast a spell
-4 check inventory
-5 move
+1) attack with sword
+2) attack with crossbow
+3) cast a spell
+4) check inventory
+5) move
 ------------------------""")
 
     # fight round loop
     while True:
       # action selection menu
-      player_action = input('What do you do next?')
+      player_action = input("What do you do next? ")
 
       
       # controls info pannel (0)
       if player_action == "0":
         sprint("""------------------------
-1 attack with sword
-2 attack with bow
-3 cast a spell
-4 check inventory
-5 move
+1) attack with sword
+2) attack with bow
+3) cast a spell
+4) check inventory
+5) move
 ------------------------""")
         continue
 
@@ -119,10 +119,11 @@ class tavern:
         spell_cast = input(f"""------------------------
 mp                  {player.mana}
 ------------------------
-1 flame             10
-2 lightening bolt   30
-3 heal              20
-------------------------""")
+1) flame             10
+2) lightening bolt   30
+3) heal              20
+------------------------
+""")
 
         # cast flame spell
         if spell_cast == "1":
@@ -171,7 +172,7 @@ mp                  {player.mana}
     
     if player.drink <= 2:
       sprint("\"Hunter, I see the monsters haven\'t gotten you yet. Can\'t say the same for all your peers.\"")
-      player_action = input('\"I take it you want a drink?\" (y or n)').lower()
+      player_action = input("\"I take it you want a drink?\" (y or n) ").lower()
       if player_action == "n":
         sprint("\"To early for some I guess\"")
         player_action = input("\"I take it you\'re here for the special bounty than?\" (y or n) ").lower()
@@ -187,11 +188,11 @@ mp                  {player.mana}
           player.health += health_from_potion
           player.mana += 10
           player.drink += 1
-          sprint(f'you gained {health_from_potion} hp')
-          sprint('\"Have fun, and remeber, be safe\"')
+          sprint(f"You gained {health_from_potion} hp.")
+          sprint("\"Have fun, and remeber, be safe\"")
         else:
-          sprint('\"If you dont got the funds then dont be asking\"')
-          sprint('You do not have enough gold.')
+          sprint("\"If you dont got the funds then dont be asking\"")
+          sprint("You do not have enough gold.")
     else:
       sprint("\"Careful, you gotta slow down before I gotta take that sword from you.\"")
       sprint("You can not have any more drinks right now.")
@@ -211,7 +212,7 @@ you have             {player.gold} gold
 ------------------------------
      0 finish shopping""")
     while True:
-      purchase = input('')
+      purchase = input("")
 
       # buy health potion
       if purchase == ("1"):
@@ -247,7 +248,7 @@ you have             {player.gold} gold
           continue
 
       # check inventory
-      elif purchase == ('4'):
+      elif purchase == ("4"):
         print(f"""------------------------------
 1) potion of health       {player.health_potions}
 2)   potion of mana       {player.mana_potions}
@@ -255,11 +256,62 @@ you have             {player.gold} gold
 ------------------------------""")
 
       # exit shop
-      elif purchase == ('0'):
-        sprint('Smiley puts the items back under the bar.')
+      elif purchase == ("0"):
+        sprint(f"{self.keep} puts the items back under the bar.")
         break
 
       # invalid input
       else:
         sprint("That is not an option.")
         continue
+
+
+  # define map function
+  def map(self):
+
+    map_action = input(f"""-------------------------------------------
+1)     Barstal    The Brass Flagon
+2)  Connyberry    The Bard and The Badger
+3)   Ironstone    Dead Man's Spirit
+4)    Kelender    The Trader's Bounty
+            0)    Exit Map
+-------------------------------------------
+     currently at {player.location}
+-------------------------------------------
+""")
+
+    # travel to barstal
+    if map_action == "1":
+      if player.location != "Barstal":
+        sprint("You look over the slope of the city to the sea. Boats in the docks and seagulls in the air.")
+        sprint("You step through the doorway of The Brass Flagon. Most tables full. The smell strong.")
+        player.location = "Barstal"
+      else:
+        sprint("You are already in Barstal.")
+
+    # travel to connyberry
+    if map_action == "2":
+      if player.location != "Connyberry":
+        sprint("The breeze blowing off Lake Bizarre is refreshing as you step into the town.")
+        sprint("You step through the doorway of The Bard and The Badger. Tuliagn with a smile on his face.")
+        player.location = "Connyberry"
+      else:
+        sprint("You are already in Connyberry.")
+
+    # travel to ironstone
+    if map_action == "3":
+      if player.location != "Ironstone":
+        sprint("You step of the boat onto Beford Island and make your way into the dark, wet alley ways of the city.")
+        sprint("You step through the doorway of The Dead Man's Spirit. It is empty with only the barkeep asleep in the corner behind the bar.")
+        player.location = "Ironstone"
+      else:
+        sprint("You are already in Ironstone.")
+
+    # travel to kelender
+    if map_action == "4":
+      if player.location != "Kelender":
+        sprint("Finally through the gates of the capital city. Through the hustle and bustle you find your way.")
+        sprint("You step through the doorway of The Trader's Bounty. The crowd is rowdy.")
+        player.location = "Kelender"
+      else:
+        sprint("You are already in Kelender.")
