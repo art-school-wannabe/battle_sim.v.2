@@ -20,6 +20,7 @@ def d(int):
   roll = random.randint(1, int)
   return roll
 
+  
 # import player class 
 try:
   exec(open("class_files/player_class.py").read())
@@ -28,6 +29,7 @@ except:
   sprint("File \"class_files/player_class.py\" is missing.")
   exit()
 
+  
 # import enemy class 
 try:
   exec(open("class_files/enemy_class.py").read())
@@ -35,6 +37,18 @@ except:
   sprint("You do not have all neccisarry files needed downloaded.")
   sprint("File \"class_files/enmey_class.py\" is missing.")
   exit()
+
+  
+# import tavern class 
+try:
+  exec(open("class_files/tavern_class.py").read())
+  tavern = tavern()
+  text = text()
+except:
+  sprint("You do not have all neccisarry files needed downloaded.")
+  sprint("File \"class_files/tavern_class.py\" is missing.")
+  exit()
+
 
 
 
@@ -50,17 +64,6 @@ while True:
     break
 file_name = player_name + "_DataFile.py"
 player = player(file_name)
-
-
-# import tavern class 
-try:
-  exec(open("class_files/tavern_class.py").read())
-  tavern = tavern()
-except:
-  sprint("You do not have all neccisarry files needed downloaded.")
-  sprint("File \"class_files/tavern_class.py\" is missing.")
-  exit()
-
 
 # game loop
 while True:
@@ -94,7 +97,7 @@ while True:
     
   # 0 quit
   elif tavern_action == ("0"):
-    sprint("You step out of the tavern and take a deep breathe of fresh air after a long days work.")
+    sprint(text.leaving)
     player.save()
     exit()
     
