@@ -8,7 +8,7 @@ class player:
       # import player data from existing file
       try:
         exec(open(file_name).read())
-        sprint("Welcome back to the tavern fine traveller.")
+        sprint("You wake up well rested. Ready for the day.")
         break
 
       # import starting player data into a new file
@@ -27,7 +27,7 @@ self.ac = (4 + self.level)
 
 # define random variables
 self.drink = 1
-self.location = 'Connyberry'
+self.location = \"Connyberry\"
 self.fighting = False
 
 # define player inventory
@@ -64,7 +64,7 @@ self.ac = (4 + self.level)
 
 # define random variables
 self.drink = {self.drink}
-self.location = '{self.location}'
+self.location = \"{self.location}\"
 self.fighting = False
 
 # define player inventory
