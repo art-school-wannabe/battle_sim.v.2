@@ -64,7 +64,7 @@ class enemy:
       # creature retreats for its life
       if self.health < 8:
         if onein(2):
-          sprint('The creature slowly retreats from you.')
+          sprint("The creature slowly retreats from you.")
           distance += 1
 
     # creature attack
