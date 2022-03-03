@@ -3,8 +3,9 @@ class tavern:
 
   # define initial function
   def __init__(self):
-    taverns = {"Connyberry": "Tuligan", "Barstal": "Kem", "Ironstone": "Barthock", "Kelender": "Jameti"}
-    self.keep = taverns[player.location]
+
+    self.x = 1
+
     
   # define bounty board function
   def bounty_board(self):
@@ -205,9 +206,9 @@ mp                  {player.mana}
     print(f"""------------------------------
 you have             {player.gold} gold
 ------------------------------
-1 potion of health   30 gold
-2 potion of mana     45 gold
-3 arrows (4 count)   10 gold
+1) potion of health   30 gold
+2) potion of mana     45 gold
+3) arrows (4 count)   10 gold
      4 check inventory
 ------------------------------
      0 finish shopping""")
@@ -257,7 +258,7 @@ you have             {player.gold} gold
 
       # exit shop
       elif purchase == ("0"):
-        sprint(f"{self.keep} puts the items back under the bar.")
+        sprint(f"{text.barkeep} puts the items back under the bar.")
         break
 
       # invalid input
@@ -283,35 +284,78 @@ you have             {player.gold} gold
     # travel to barstal
     if map_action == "1":
       if player.location != "Barstal":
-        sprint("You look over the slope of the city to the sea. Boats in the docks and seagulls in the air.")
-        sprint("You step through the doorway of The Brass Flagon. Most tables full. The smell strong.")
         player.location = "Barstal"
       else:
         sprint("You are already in Barstal.")
 
     # travel to connyberry
-    if map_action == "2":
+    elif map_action == "2":
       if player.location != "Connyberry":
-        sprint("The breeze blowing off Lake Bizarre is refreshing as you step into the town.")
-        sprint("You step through the doorway of The Bard and The Badger. Tuliagn with a smile on his face.")
         player.location = "Connyberry"
       else:
         sprint("You are already in Connyberry.")
 
     # travel to ironstone
-    if map_action == "3":
+    elif map_action == "3":
       if player.location != "Ironstone":
-        sprint("You step of the boat onto Beford Island and make your way into the dark, wet alley ways of the city.")
-        sprint("You step through the doorway of The Dead Man's Spirit. It is empty with only the barkeep asleep in the corner behind the bar.")
         player.location = "Ironstone"
       else:
         sprint("You are already in Ironstone.")
 
     # travel to kelender
-    if map_action == "4":
+    elif map_action == "4":
       if player.location != "Kelender":
-        sprint("Finally through the gates of the capital city. Through the hustle and bustle you find your way.")
-        sprint("You step through the doorway of The Trader's Bounty. The crowd is rowdy.")
         player.location = "Kelender"
       else:
         sprint("You are already in Kelender.")
+
+    # invalid input
+    else:
+      sprint("That is not an option")
+
+    # update text variables
+    text.update()
+    player.save()
+    sprint(text.arriving1)
+    sprint(text.arriving2)
+    
+
+
+
+# this class all dynamic text in the game
+# define text class
+class text:
+
+  # define innitial function
+  def __init__(self):
+    # define text dictionaries
+    self.textbarkeep =   {"Barstal": "Tuligan", 
+                        "Connybery": "Kem", 
+                        "Ironstone": "Barthock", 
+                         "Kelender": "Jameti"}
+    
+    self.textarriving1 = {"Barstal": "You look over the slope of the city to the sea. Boats in the docks and seagulls in the air.", 
+                       "Connyberry": "The breeze blowing off Lake Bizarre is refreshing as you step into the town.", 
+                        "Ironstone": "You step of the boat onto Beford Island and make your way into the dark, wet alley ways of the city.", 
+                         "Kelender": "Finally through the gates of the capital city. Through the hustle and bustle you find your way."}
+    
+    self.textarriving2 = {"Barstal": "You step through the doorway of The Brass Flagon. Most tables full. The smell strong.", 
+                       "Connyberry": "You step through the doorway of The Bard and The Badger. Tuliagn with a smile on his face.", 
+                        "Ironstone": "You step through the doorway of The Dead Man's Spirit. It is empty with only the barkeep asleep in the corner behind the bar.", 
+                         "Kelender": "You step through the doorway of The Trader's Bounty. The crowd is rowdy."}
+
+    self.textleaving =   {"Barstal": "You head upstairs to a small, cozy room. You watch the sun sets over the ocean through the window fom the bed, closing your eyes for sleep.", 
+                        "Connybery": "With a dim light of a fisherman's boat still out on the lake visible from the widnow, you rest your sore body.", 
+                        "Ironstone": "The room is small and damp but your aching bones find comfot on the straw mattress none the less.", 
+                         "Kelender": "The calls of the seagulls wash over the bay one last time. In a city that never sleeps, you find rest."}
+    
+
+  # define update function
+  def update(self):
+    self.barkeep = self.textbarkeep[player.location]
+    self.arriving1 = self.textarriving1[player.location]
+    self.arriving2 = self.textarriving2[player.location]
+    self.leaving = self.textleaving[player.location]
+
+    
+    
