@@ -20,7 +20,7 @@ def d(int):
   roll = random.randint(1, int)
   return roll
 
-# import plaeyer class 
+# import player class 
 try:
   exec(open("class_files/player_class.py").read())
 except:
@@ -28,21 +28,12 @@ except:
   sprint("File \"class_files/player_class.py\" is missing.")
   exit()
 
-# import plaeyer class 
+# import enemy class 
 try:
   exec(open("class_files/enemy_class.py").read())
 except:
   sprint("You do not have all neccisarry files needed downloaded.")
   sprint("File \"class_files/enmey_class.py\" is missing.")
-  exit()
-
-# import plaeyer class 
-try:
-  exec(open("class_files/tavern_class.py").read())
-  tavern = tavern()
-except:
-  sprint("You do not have all neccisarry files needed downloaded.")
-  sprint("File \"class_files/tavern_class.py\" is missing.")
   exit()
 
 
@@ -60,34 +51,53 @@ while True:
 file_name = player_name + "_DataFile.py"
 player = player(file_name)
 
+
+# import tavern class 
+try:
+  exec(open("class_files/tavern_class.py").read())
+  tavern = tavern()
+except:
+  sprint("You do not have all neccisarry files needed downloaded.")
+  sprint("File \"class_files/tavern_class.py\" is missing.")
+  exit()
+
+
+# game loop
 while True:
   
   # tavern selection menu
-  tavern_action = input("""-----------------
-1 take a bounty
-2 grab a drink
-3 buy items
-0 end game
------------------""")
+  tavern_action = input("""--------------------
+1) take a bounty
+2) grab a drink
+3) buy items
+--------------------
+ (4) map  (0) quit
+""")
 
   # 1 take a bounty
   if tavern_action == ("1"):
     creature = tavern.bounty_board()
     if player.fighting:
       tavern.fight()
-    
 
   # 2 grab a drink
   elif tavern_action == ("2"):
     tavern.barkeep()
-
+    
   # 3 buy items
-  if tavern_action == '3':
+  if tavern_action == ("3"):
     tavern.shop()
 
-        
-  # 0 end game
-  elif tavern_action == "0":
+  # 4 map
+  if tavern_action == ("4"):
+    tavern.map()
+    
+  # 0 quit
+  elif tavern_action == ("0"):
     sprint("You step out of the tavern and take a deep breathe of fresh air after a long days work.")
     player.save()
     exit()
+    
+  # invalid input
+  else:
+    sprint("That is not an option.")
