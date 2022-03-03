@@ -8,7 +8,7 @@ class player:
       # import player data from existing file
       try:
         exec(open(file_name).read())
-        sprint("welcome back to the tavern fine traveller")
+        sprint("Welcome back to the tavern fine traveller.")
         break
 
       # import starting player data into a new file
@@ -27,6 +27,7 @@ self.ac = (4 + self.level)
 
 # define random variables
 self.drink = 1
+self.location = 'Connyberry'
 self.fighting = False
 
 # define player inventory
@@ -41,7 +42,7 @@ self.arrows = random.randint(12,16)
 
           # import player data from new file
           exec(open(file_name).read())
-          sprint("And so your journey begins")
+          sprint("And so your journey begins.")
           break
         else:
           file_name = input("Enter a valid character name: ") + "_DataFile.py"
@@ -63,6 +64,7 @@ self.ac = (4 + self.level)
 
 # define random variables
 self.drink = {self.drink}
+self.location = '{self.location}'
 self.fighting = False
 
 # define player inventory
@@ -107,7 +109,7 @@ self.arrows = {self.arrows}
     self.drink = 1
     enemy.duration = 0
     self.save()
-    sprint('You return to the tavern.')
+    sprint("You return to the tavern.")
     self.fighting = False
 
 
@@ -221,7 +223,7 @@ self.arrows = {self.arrows}
 
       # enemy attack
       else:
-        sprint('You missed the spell.')
+        sprint("You missed the spell.")
         creature.action()
     
     else:
@@ -235,7 +237,7 @@ self.arrows = {self.arrows}
       self.health += 10
       sprint(f"You cast heal. You recovered 10 hp. You are at {self.health} hp.")
     else:
-      sprint('You do not have enough mana.')
+      sprint("You do not have enough mana.")
 
       
   # define check inventory function
@@ -304,10 +306,11 @@ self.arrows = {self.arrows}
 
     global distance
     move_action = input("""------------------------
-1 step forward
-2 step back
-3 run away
-------------------------""")
+1) step forward
+2) step back
+3) run away
+------------------------
+""")
 
     # step forward
     if move_action == "1":
@@ -323,7 +326,7 @@ self.arrows = {self.arrows}
         distance += 1
         sprint("You stepped from the creature.")
       else:
-        move_action = input("You are already stepped away from the creature. Do you want to run away? (y or n)").lower()
+        move_action = input("You are already stepped away from the creature. Do you want to run away? (y or n) ").lower()
         if move_action == "y":
           sprint("You ran away.")
           self.rewrad()
