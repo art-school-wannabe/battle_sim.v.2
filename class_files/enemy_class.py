@@ -5,17 +5,17 @@ class enemy:
   def __init__(self):
     
     # define enemy stats
-    self.health = int(player.attackmulti * random.randint(26, 68))
-    if self.health < player.health:
+    self.health = int(random.randint(26, 68) * player.attackmulti)
+    if self.health < (40 * player.attackmulti):
       self.size = 'small'
     else:
       self.size = 'large'
-    self.attack_bonus = player.level
     self.attackmulti = player.attackmulti
     self.attackbonus = player.level
     self.ac = (4 + player.level)
     
     # define random variables
+    self.type = random.choice(text.textenemy_type[player.location])
     self.duration = 0
 
     # define enemy invntory
@@ -25,6 +25,18 @@ class enemy:
     # start fight
     player.fighting = True
 
+
+  # define fire damage function
+  def onfire(self):
+
+    damage = d(4) + player.level
+    self.health -= damage
+    sprint(f"The {text.enemy_type} is on fire. It takes {damage} damage.")
+    if self.health <= 0:
+      sprint(f"The {text.enemy_type} died.")
+      player.reward()
+    self.duration -= 1
+    
   
   # define enemy action function
   def action(self):
@@ -34,29 +46,25 @@ class enemy:
 
     # if creature is on fire
     if self.duration > 0:
-      damage = d(4)
-      self.health -= damage
-      sprint(f"The creature is on fire. It takes {damage} damage.")
-      if self.health < 0:
-        self.health = 0
-      self.duration -= 1
+      self.onfire()
 
     # creature movment
     # creature is far
     if distance == 2:
+      if player.fighting:
 
-      # creature gets closer or fight 
-      if self.health > 8:
-        if onein(6):
-          sprint("The creature lunges at you.")
-          distance -= 1
+        # creature gets closer or fight 
+        if self.health > 8:
+          if onein(6):
+            sprint(f"The {text.enemy_type} lunges at you.")
+            distance -= 1
 
-      # creature flees for its life
-      else:
-        if onein(4):
-          sprint("The creature, close to death, flees off into the forest.")
-          sprint("You do not get the bounty.")
-          distance = 3
+        # creature flees for its life
+        else:
+          if onein(4):
+            sprint(f"The {text.enemy_type}, close to death, flees off into the forest.")
+            sprint("You do not get the bounty.")
+            player.fighting = False
 
     # creature is close
     else:
@@ -64,12 +72,12 @@ class enemy:
       # creature retreats for its life
       if self.health < 8:
         if onein(2):
-          sprint("The creature slowly retreats from you.")
+          sprint(f"The {text.enemy_type} slowly retreats from you.")
           distance += 1
 
     # creature attack
   
-    if distance < 3:
+    if player.fighting:
       # creature gets bonus for being close
       if distance == 1:
         attack_chance = (d(20) + self.attackbonus)
@@ -79,16 +87,18 @@ class enemy:
       if attack_chance > player.ac:
         damage = (d(20) + self.attackbonus)
         player.health -= damage
-        if player.health < 0:
+        if player.health <= 0:
           player.health = 0
+          player.fighting = False
                     
-        sprint(f"The creature attacked dealing {damage} damage. You are at {player.health} hp.")
-        if player.health == 0:
+        sprint((text.enemy_attack) + f" dealing {damage} damage. You are at {player.health} hp.")
+
+        if not player.fighting:
           sprint("You got knockd unconscious.")
           sprint("You awake in the tavern with no bounty and a massive headache.")
           player.died()
           player.reward()
                       
       else:
-        sprint("The creature missed the attack.")
+        sprint(text.enemy_miss)
 
